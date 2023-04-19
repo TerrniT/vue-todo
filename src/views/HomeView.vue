@@ -60,48 +60,53 @@ onMounted(()=> {
 </script>
 
 <template>
-  <main class="">
-    <section>
-      <h2>What's up, <input type="text" placeholder="Name here" v-model="name"/></h2>
+  <main class="max-w-md mx-auto">
+    <section class="mt-4 bg-gray-50 p-6 rounded-md">
+      <h2>What's up, <input type="text" placeholder="Name here" v-model="name" class="bg-transparent text-pink-700 font-medium outline-none placeholder:font-normal"/></h2>
     </section>
 
-    <section>
-      <h3>Create a todo</h3>
-      <form @submit.prevent="addTodo">
-        <h4>What's on your todo list?</h4>
-        <input type="text" placeholder="Learn Vue3" v-model="inputContent"/>
+    <section class="mt-4">
+      <h3 class="text-pink-800 font-bold">## Create a todo</h3>
+      <form @submit.prevent="addTodo" class="mt-4">
+        <h4 class="text-pink-600 italic">### What's on your todo list?</h4>
+        <input type="text" placeholder="Type something" v-model="inputContent" class="w-full bg-transparent mt-2 border border-gray-300 px-3 py-2 rounded-md"/>
+
+        <div class="mt-4">
         <h4>Pick a category</h4>
-        <div>
-          <label>
-            <input type="radio" name="category"  value="business" v-model="inputCategory"/>
-            <span>Business</span>
+        <div class="mt-2 flex gap-3 w-full">
+          <label class="flex flex-col gap-2 bg-gray-50 py-4 px-8 items-center rounded-md border border-gray-200 w-full">
+            <input type="radio" name="category"  value="work" v-model="inputCategory"/>
+            <span>Work</span>
           </label>
 
-          <label>
-            <input type="radio" name="category"  value="personal" v-model="inputCategory"/>
+          <label class="flex flex-col gap-2 bg-gray-50 py-4 px-8 items-center rounded-md border border-gray-200 w-full">
+            <input type="radio" name="category"  value="personal" v-model="inputCategory" />
             <span>Personal</span>
           </label>
+
+        </div>
         </div>
 
-        <input type="submit" value="Add Todo" class="border border-zinc-400 hover:cursor-pointer" />
+        <input type="submit" value="Add Todo" class="border border-zinc-400 hover:cursor-pointer px-3 py-2 rounded-md mt-4 w-full bg-green-600 text-white hover:bg-green-500 duration-100 transition-all" />
       </form>
     </section>
 
-    <section>
-      <h3>Todo List</h3>
-      <div>
-        <div v-for="todo in todoAscSort" :class="`${todo.status ? 'bg-zinc-600' : ''}`">
-          <label><input type="checkbox" v-model="todo.status"/>
-            <div :class="` rounded-full w-5 h-5 ${todo.category == 'business' ? 'bg-purple-500' : ''}`"></div>
+    <section class="mt-4">
+      <h3 class="text-pink-800 font-bold">## Todo List</h3>
+      <div class="w-full flex gap-1 flex-col">
+        <div v-for="todo in todoAscSort" :class="`${todo.status ? 'text-zinc-300' : ''} w-full flex p-1 items-center justify-between`">
+          <div class="flex w-full pr-2">
+          <label class="flex items-center gap-3">
+            <input type="checkbox" v-model="todo.status"/>
+            <div :class="` rounded-full w-3 h-3 ${todo.category == 'business' ? 'bg-purple-500' : 'bg-blue-500'}`"></div>
           </label>
-          <div><input type="text" v-model="todo.content"/></div>
+            <input type="text" v-model="todo.content" class="bg-transparent border-b hover:border-zinc-400 outline-none p-1 duration-100 transition-all border-white w-full"/>
+            </div>
           <div>
-            <button class="text-xs bg-red-500/20 text-red-500 " @click="removeTodo(todo)">Delete</button>
+            <button class=" px-2 py-1 rounded-md hover:text-white hover:bg-red-500/80 duration-150 transition-all text-xs bg-red-500/20 text-red-500 " @click="removeTodo(todo)">Delete</button>
           </div>
-
         </div>
       </div>
-
     </section>
 
   </main>
