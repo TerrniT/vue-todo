@@ -30,6 +30,13 @@ const addTodo = () => {
     status: false,
     createdAt: new Date().getTime()
   })
+
+  inputContent.value = ''
+  inputCategory.value = null
+}
+
+const removeTodo = (todo: Todo) => {
+  todos.value = todos.value.filter(item => item !== todo)
 }
 
 // dont work without deep == true, cuz todos needs to be a completly new value 
@@ -78,6 +85,23 @@ onMounted(()=> {
 
         <input type="submit" value="Add Todo" class="border border-zinc-400 hover:cursor-pointer" />
       </form>
+    </section>
+
+    <section>
+      <h3>Todo List</h3>
+      <div>
+        <div v-for="todo in todoAscSort" :class="`${todo.status ? 'bg-zinc-600' : ''}`">
+          <label><input type="checkbox" v-model="todo.status"/>
+            <div :class="` rounded-full w-5 h-5 ${todo.category == 'business' ? 'bg-purple-500' : ''}`"></div>
+          </label>
+          <div><input type="text" v-model="todo.content"/></div>
+          <div>
+            <button class="text-xs bg-red-500/20 text-red-500 " @click="removeTodo(todo)">Delete</button>
+          </div>
+
+        </div>
+      </div>
+
     </section>
 
   </main>
